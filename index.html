@@ -3,142 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎄 마법 편지 보내기</title>
+  <title>🎄 크리스마스 카드 만들기</title>
 
-  <!-- 모던 폰트 -->
+  <!-- 모던 폰트: 궁서/손글씨 느낌 제거 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- 배경 -->
   <div class="bg">
-    <div class="bg-orb orb1"></div>
-    <div class="bg-orb orb2"></div>
-    <div class="bg-orb orb3"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div id="snow-container"></div>
   </div>
 
+  <!-- 상단 바 -->
   <header class="topbar">
     <div class="brand">
       <div class="logo">🎄</div>
       <div class="brand-text">
-        <div class="brand-title">Magic Letter</div>
-        <div class="brand-sub">링크 하나로 편지를 남기고 함께 확인하기</div>
+        <div class="brand-title">Holiday Card</div>
+        <div class="brand-sub">스티커를 올리고 편지를 써서 링크로 공유해봐</div>
       </div>
     </div>
+
     <div class="top-actions">
-      <span class="chip">✨ Drag</span>
-      <span class="chip">🖱️ Scroll to resize</span>
-      <span class="chip">🗑️ Right-click delete</span>
+      <button id="btn-jingle" class="btn small ghost" type="button">Play Jingle</button>
+      <button id="btn-shake" class="btn small ghost" type="button">Shake!</button>
+      <button id="btn-reset" class="btn small ghost" type="button">Reset</button>
+      <button id="btn-sound" class="btn small" type="button" aria-pressed="true">Sound: On</button>
     </div>
   </header>
 
   <main class="layout">
-    <!-- 왼쪽: 카드 편집 -->
-    <section class="panel">
+    <!-- 왼쪽: 스티커 트레이 -->
+    <aside class="panel tray">
       <div class="panel-head">
-        <h1 class="h1">🎅 크리스마스 카드 만들기</h1>
-        <p class="p">아이템을 올리고 편지를 작성한 뒤, 링크로 공유해봐.</p>
-      </div>
-
-      <div id="card-area" class="card-canvas">
-        <div id="default-items-container"></div>
-      </div>
-
-      <div class="compose">
-        <label class="label">편지 내용</label>
-        <textarea id="letter-content" class="textarea" placeholder="예) 올 한 해 고생 많았고, 내년엔 더 행복하자!"></textarea>
-
-        <div class="controls">
-          <button id="save-button" class="btn primary">공유 링크 만들기</button>
-          <button id="clear-button" class="btn ghost" type="button">카드 초기화</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 오른쪽: 아이템 팔레트 -->
-    <aside class="panel palette">
-      <div class="panel-head">
-        <h2 class="h2">🎁 아이템</h2>
-        <p class="p small">검색해서 빠르게 추가할 수 있어.</p>
+        <div class="h2">Sticker Tray</div>
+        <div class="p small">클릭해서 추가 / 드래그로 이동 / 휠로 크기 / 우클릭 삭제</div>
       </div>
 
       <input id="item-search" class="input" type="text" placeholder="검색: 별, 트리, 로켓…" />
 
-      <div id="item-grid" class="grid">
-        <!-- 기본 -->
-        <div class="item" data-item-type="santa">🎅</div>
-        <div class="item" data-item-type="tree">🌲</div>
-        <div class="item" data-item-type="gift">🎁</div>
-        <div class="item" data-item-type="snowman">⛄</div>
-        <div class="item" data-item-type="bell">🔔</div>
-        <div class="item" data-item-type="star">⭐</div>
-        <div class="item" data-item-type="cookie">🍪</div>
-        <div class="item" data-item-type="candy">🍬</div>
+      <div id="item-grid" class="grid" aria-label="스티커 목록">
+        <button class="item" data-label="tree">🎄<span>Tree</span></button>
+        <button class="item" data-label="snowman">⛄<span>Snowman</span></button>
+        <button class="item" data-label="santa">🎅<span>Santa</span></button>
+        <button class="item" data-label="reindeer">🦌<span>Reindeer</span></button>
+        <button class="item" data-label="gift">🎁<span>Gift</span></button>
+        <button class="item" data-label="star">⭐<span>Star</span></button>
+        <button class="item" data-label="sparkles">✨<span>Sparkles</span></button>
+        <button class="item" data-label="snowflake">❄️<span>Snowflake</span></button>
 
-        <!-- 확장 -->
-        <div class="item" data-item-type="reindeer">🦌</div>
-        <div class="item" data-item-type="stocking">🧦</div>
-        <div class="item" data-item-type="candle">🕯️</div>
-        <div class="item" data-item-type="snowflake">❄️</div>
-        <div class="item" data-item-type="sparkle">✨</div>
-        <div class="item" data-item-type="heart">💚</div>
-        <div class="item" data-item-type="letter">💌</div>
-        <div class="item" data-item-type="bear">🧸</div>
-        <div class="item" data-item-type="music">🎶</div>
-        <div class="item" data-item-type="camera">📷</div>
+        <button class="item" data-label="bell">🔔<span>Bell</span></button>
+        <button class="item" data-label="cookie">🍪<span>Cookie</span></button>
+        <button class="item" data-label="candy">🍬<span>Candy</span></button>
+        <button class="item" data-label="stocking">🧦<span>Stocking</span></button>
 
-        <!-- 우주감성 -->
-        <div class="item" data-item-type="rocket">🚀</div>
-        <div class="item" data-item-type="planet">🪐</div>
-        <div class="item" data-item-type="moon">🌙</div>
-        <div class="item" data-item-type="ufo">🛸</div>
-        <div class="item" data-item-type="astronaut">👩‍🚀</div>
+        <button class="item" data-label="rocket">🚀<span>Rocket</span></button>
+        <button class="item" data-label="planet">🪐<span>Planet</span></button>
+        <button class="item" data-label="moon">🌙<span>Moon</span></button>
+        <button class="item" data-label="ufo">🛸<span>UFO</span></button>
       </div>
 
       <div class="help">
-        <div class="help-title">사용 팁</div>
+        <div class="help-title">Tip</div>
         <ul class="help-list">
-          <li>아이템 클릭 → 카드에 추가</li>
-          <li>드래그로 이동</li>
-          <li>마우스 휠로 크기 조절</li>
-          <li>우클릭(모바일 길게) 삭제</li>
+          <li>스티커 클릭 → 카드에 추가</li>
+          <li>드래그 → 이동</li>
+          <li>휠(스크롤) → 크기</li>
+          <li>우클릭 → 삭제</li>
         </ul>
       </div>
     </aside>
+
+    <!-- 가운데: 카드 -->
+    <section class="panel canvas-panel">
+      <div class="card">
+        <div class="card-head">
+          <div class="title">Happy Holidays!</div>
+          <div class="subtitle">Decorate me with stickers and write a letter.</div>
+
+          <div class="mini-fields">
+            <input id="to-input" class="mini-input" placeholder="To My Friend" />
+            <input id="from-input" class="mini-input" placeholder="From Me" />
+          </div>
+        </div>
+
+        <div id="card-area" class="card-area">
+          <div id="default-items-container"></div>
+
+          <!-- 카드 안쪽 장식 (살짝) -->
+          <div class="string-lights" aria-hidden="true"></div>
+        </div>
+
+        <div class="letter">
+          <label class="label">편지 내용</label>
+          <textarea id="letter-content" class="textarea" placeholder="예) 올 한 해 고생 많았고, 내년엔 더 행복하자!"></textarea>
+
+          <div class="controls">
+            <button id="save-button" class="btn primary" type="button">공유 링크 만들기</button>
+            <button id="open-viewer" class="btn ghost" type="button">저장된 카드 보기</button>
+          </div>
+
+          <div class="small-note">
+            ⚠️ 현재 버전은 <b>내 브라우저(localStorage)</b>에 저장돼서 “진짜 4명 누적 저장”은 Firebase 연결이 필요해.
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- 뷰어 모달 -->
+  <!-- 뷰어 모달 (X / 입력 안되던 문제 해결 포함) -->
   <div id="viewer-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true">
       <button class="close-button" type="button" aria-label="닫기">×</button>
       <div class="modal-head">
         <div class="modal-title">친구의 편지 ✨</div>
-        <div class="modal-sub">다시 링크로 열어도 확인 가능</div>
+        <div class="modal-sub">링크/해시로 들어오면 자동으로 열릴 수 있어</div>
       </div>
+
       <div id="viewer-card-area" class="viewer-canvas"></div>
       <p id="viewer-letter-content" class="viewer-text"></p>
     </div>
   </div>
 
-  <!-- 사운드는 없어도 되게 -->
+  <!-- 사운드(없어도 동작하게 JS에서 안전 처리) -->
   <audio id="drop-sound" src="sounds/pop.mp3" preload="auto"></audio>
-  <audio id="snow-sound" src="sounds/snow_falling.mp3" loop preload="auto"></audio>
   <audio id="save-sound" src="sounds/chime.mp3" preload="auto"></audio>
+  <audio id="jingle-sound" src="sounds/jingle.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
-
-  <script>
-    // 초기화 버튼(원치 않으면 지워도 됨)
-    const clearBtn = document.getElementById("clear-button");
-    clearBtn?.addEventListener("click", () => {
-      const card = document.getElementById("card-area");
-      const letter = document.getElementById("letter-content");
-      if (card) card.innerHTML = '<div id="default-items-container"></div>';
-      if (letter) letter.value = "";
-    });
-  </script>
 </body>
 </html>
