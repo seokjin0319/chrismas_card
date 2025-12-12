@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎄 크리스마스 카드</title>
+
+  <!-- 폰트: 올드 느낌 제거 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* view 전용: 편집 UI 숨기기 */
+    #item-palette, .tray, #item-grid, #item-search,
+    #btn-reset, #btn-shake, #btn-jingle, #btn-sound,
+    .help, .hint, .top-actions { display:none !important; }
+
+    /* 모바일에서 보기 편하게 */
+    body { font-family: Pretendard, system-ui, sans-serif; }
+    #app-container, .layout { max-width: 820px; margin: 0 auto; padding: 16px; }
+    #card-area, .card-area { height: min(60vh, 420px); }
+    textarea, #letter-content { min-height: 140px; font-size: 16px; } /* 모바일 확대 방지 */
+  </style>
+</head>
+<body>
+
+  <!-- 카드 영역(네 기존 구조에 맞춰 id 유지) -->
+  <div id="app-container">
+    <div id="card-editor">
+      <h1 style="margin: 6px 0 8px;">🎄 크리스마스 카드</h1>
+      <p style="margin:0 0 12px; opacity:.8;">아래에 편지를 남기고 “복사”해서 보내줘!</p>
+
+      <div id="card-area">
+        <div id="default-items-container"></div>
+      </div>
+
+      <textarea id="letter-content" placeholder="여기에 편지를 써줘 🙂"></textarea>
+
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px; flex-wrap:wrap;">
+        <button id="copy-message" class="btn primary" type="button">편지 복사</button>
+        <button id="kakao-hint" class="btn ghost" type="button">카톡으로 보내기 안내</button>
+      </div>
+
+      <p style="font-size:12px; opacity:.75; margin-top:10px; line-height:1.5;">
+        ※ GitHub Pages만 사용 중이라, 작성한 편지가 자동으로 서버에 저장되지는 않아요.<br/>
+        “편지 복사” → 카톡/DM으로 보내주는 방식이 가장 가볍고 확실해요.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // view 전용: 편지 복사 버튼
+    const btn = document.getElementById("copy-message");
+    const txt = document.getElementById("letter-content");
+    btn?.addEventListener("click", async () => {
+      const v = (txt?.value || "").trim();
+      if (!v) return alert("편지 내용을 먼저 써줘!");
+      try {
+        await navigator.clipboard.writeText(v);
+        alert("복사 완료! 카톡/DM에 붙여넣어서 보내줘 🙂");
+      } catch {
+        alert("복사 권한이 막혔어. 내용 선택해서 직접 복사해줘!");
+      }
+    });
+
+    document.getElementById("kakao-hint")?.addEventListener("click", () => {
+      alert("1) '편지 복사' 누르기\n2) 카카오톡 열기\n3) 너(주인)에게 붙여넣어 보내기 🙂");
+    });
+  </script>
+</body>
+</html>
