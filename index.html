@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 마법 편지 보내기 🎅</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Gaegu&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="snow-container"></div> <div id="app-container">
+        <div id="card-editor">
+            <h1 id="app-title">🎄 마법 편지 보내기 🎅</h1>
+            <div id="card-area">
+                <div id="default-items-container"></div> </div>
+            <textarea id="letter-content" placeholder="친구에게 크리스마스 편지를 써보세요!"></textarea>
+            
+            <div id="controls">
+                <button id="save-button">🌟 편지 저장 및 공유 링크 만들기 🌟</button>
+            </div>
+        </div>
+
+        <div id="item-palette">
+            <h3>🎁 아이템 꾸미기</h3>
+            <div class="item" data-item-type="santa">🎅</div>
+            <div class="item" data-item-type="tree">🌲</div>
+            <div class="item" data-item-type="gift">🎁</div>
+            <div class="item" data-item-type="snowman">⛄</div>
+            <div class="item" data-item-type="bell">🔔</div>
+            <div class="item" data-item-type="star">⭐</div>
+            <div class="item" data-item-type="cookie">🍪</div>
+            <div class="item" data-item-type="candy">🍬</div>
+            </div>
+    </div>
+
+    <div id="viewer-modal" class="hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>친구의 마법 편지!</h2>
+            <div id="viewer-card-area">
+                </div>
+            <p id="viewer-letter-content"></p>
+        </div>
+    </div>
+
+    <audio id="drop-sound" src="sounds/pop.mp3" preload="auto"></audio>
+    <audio id="snow-sound" src="sounds/snow_falling.mp3" loop preload="auto"></audio>
+    <audio id="save-sound" src="sounds/chime.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
